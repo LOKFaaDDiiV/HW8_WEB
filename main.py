@@ -27,8 +27,7 @@ class Quote(Document):
 
 
 def normalize(some):
-    # return some.encode('windows-1251').decode('utf-8')
-    return some
+    return some.encode('windows-1251').decode('utf-8')
 
 
 def str_to_date(date_string: str):
@@ -45,7 +44,6 @@ def json_to_db():
     with open('quotes.json', 'r') as fh:
         quotes_doc = json.load(fh)
 
-    # Варік в лоб
     for author in authors_doc:
         authors = Author(fullname=author['fullname'],
                          born_date=str_to_date(author['born_date']),
@@ -70,7 +68,6 @@ def main():
         raw = q.split(': ')
         if raw[0] == 'name':
             id_of = Author.objects(fullname=raw[1])[0].id
-            # print(id_of)
             q_list = Quote.objects(author=id_of)
             for i in q_list:
                 print(normalize(i.quote))
@@ -91,7 +88,6 @@ def main():
 # -----------------------------------------------------------------
 
 if __name__ == '__main__':
-
-    # json_to_db()
+    json_to_db()
     main()
 
